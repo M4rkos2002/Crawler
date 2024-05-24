@@ -1,0 +1,7 @@
+spring:
+  application:
+    name: crawler
+
+filter:
+  file:
+    path: stopwords/english
