@@ -3,6 +3,7 @@ package sirius.challenge.crawler.filter
 import org.springframework.core.io.ClassPathResource
 import java.io.BufferedReader
 import java.io.InputStreamReader
+import java.util.*
 
 
 class IrrelevantWordsMessageFilter(
@@ -26,7 +27,7 @@ class IrrelevantWordsMessageFilter(
         val stopWords = mutableSetOf<String>()
         val resource = ClassPathResource(path)
         BufferedReader(InputStreamReader(resource.inputStream)).use { reader ->
-            reader.forEachLine { stopWords.add(it.trim().toLowerCase()) }
+            reader.forEachLine { stopWords.add(it.trim().lowercase(Locale.getDefault())) }
         }
         return stopWords
     }
@@ -36,7 +37,7 @@ class IrrelevantWordsMessageFilter(
      */
     private fun filterWords(text: String, stopwords: Set<String>): List<String> {
         val words = text.split("\\s+".toRegex())
-        return words.filter { it.toLowerCase() !in stopwords }
+        return words.filter { it.lowercase(Locale.getDefault()) !in stopwords }
     }
 
 }
