@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="sirius.challenge.crawler.crawler.AmazonCrawlerDescriptionTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2024-05-24T21:37:31" hostname="marcos" time="2.486">
+  <properties/>
+  <testcase name="test002_ExtractsProperTextFormURL()" classname="sirius.challenge.crawler.crawler.AmazonCrawlerDescriptionTest" time="2.486"/>
+  <system-out><![CDATA[Product Description Enjoy The Creative Life with the TCL 40" 1080p direct LED HDTV. It delivers premium picture quality and tremendous value in a sophisticated slim frame design perfect for bringing entertainment to any space. This flat screen LED HDTV features High Definition 1080p resolution for a sharper image and TCL True Color Technology for brilliant color and contrast. With direct LED backlighting, view darker blacks and luminous brightness while maintaining the best standards in energy efficiency. Amazon.com
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
