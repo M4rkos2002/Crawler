@@ -6,6 +6,5 @@ import jakarta.persistence.*
 class Word(
     @Id @GeneratedValue(strategy = GenerationType.AUTO) var id: Long? = null,
     @Column(nullable = false) var content: String = "",
-    @Column(nullable = false) var frequency: Int = 0,
-    @ManyToOne(fetch = FetchType.EAGER) var url: URL,
+    @OneToOne(mappedBy = "word", fetch = FetchType.EAGER)  var frequency: Frequency? = null,
 )
