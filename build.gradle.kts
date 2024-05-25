@@ -29,6 +29,7 @@ dependencies {
 	implementation("org.jetbrains.kotlin:kotlin-stdlib:1.6.0")
 	implementation("org.seleniumhq.selenium:selenium-java:3.141.59")
 	implementation("org.seleniumhq.selenium:selenium-chrome-driver:3.141.59")
+	implementation("io.github.cdimascio:dotenv-kotlin:6.3.1")
 }
 
 tasks.withType<KotlinCompile> {
