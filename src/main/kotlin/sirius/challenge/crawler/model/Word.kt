@@ -8,5 +8,4 @@ class Word(
     @Column(nullable = false) var content: String = "",
     @Column(nullable = false) var frequency: Int = 0,
     @ManyToOne(fetch = FetchType.EAGER) var url: URL,
-) {
-}
+)
