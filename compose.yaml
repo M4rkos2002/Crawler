@@ -1,1 +1,9 @@
 services:
+  database:
+    image: 'postgres:15.2'
+    ports:
+      - '${DB_PORT}:5432'
+    environment:
+      - 'POSTGRES_USER=${DB_USER}'
+      - 'POSTGRES_DB=${DB_NAME}'
+      - 'POSTGRES_PASSWORD=${DB_PASSWORD}'
