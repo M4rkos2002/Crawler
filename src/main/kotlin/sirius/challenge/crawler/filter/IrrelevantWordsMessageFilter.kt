@@ -12,12 +12,18 @@ class IrrelevantWordsMessageFilter(
 
     override fun filter(message: String): String {
         val stopWords = this.loadStopWords()
-        val filteredMessage = filterWords(message, stopWords)
-        var result = ""
-        filteredMessage.forEach {
-            word -> result = "$result $word"
+        val filteredMessage = filterHelper(message, stopWords)
+        return filteredMessage.joinToString(" ")
+    }
+
+    private fun filterHelper(text: String, stopWords: Set<String>): List<String> {
+        val words = text.split("\\s+".toRegex())
+        return words.filter { word ->
+            val cleanWord = word.trim().replace(Regex("^[^a-zA-Z0-9\"]+|[^a-zA-Z0-9\"]+$"), "")
+            cleanWord.isNotEmpty() && !stopWords.contains(cleanWord.toLowerCase())
+        }.map { word ->
+            word.trim().replace(Regex("[.,]+$"), "")
         }
-        return result
     }
 
     /*
@@ -31,13 +37,4 @@ class IrrelevantWordsMessageFilter(
         }
         return stopWords
     }
-
-    /*
-        Filters message in words
-     */
-    private fun filterWords(text: String, stopwords: Set<String>): List<String> {
-        val words = text.split("\\s+".toRegex())
-        return words.filter { it.lowercase(Locale.getDefault()) !in stopwords }
-    }
-
 }

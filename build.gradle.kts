@@ -28,10 +28,11 @@ dependencies {
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
 	testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 	implementation("org.jsoup:jsoup:1.15.3")
-	implementation("org.seleniumhq.selenium:selenium-java:3.141.59")
-	implementation("org.seleniumhq.selenium:selenium-chrome-driver:3.141.59")
 	implementation("org.postgresql:postgresql:42.7.3")
-
+	implementation("org.seleniumhq.selenium:selenium-java:4.21.0")
+	implementation("org.seleniumhq.selenium:selenium-chrome-driver:4.13.0")
+	implementation("com.kennycason:kumo-core:1.28")
+	implementation("com.kennycason:kumo-tokenizers:1.28")
 }
 
 tasks.withType<KotlinCompile> {

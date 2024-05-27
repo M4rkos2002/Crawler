@@ -12,7 +12,11 @@ spring:
     properties:
       hibernate:
         dialect: org.hibernate.dialect.PostgreSQLDialect
-        
+
+word:
+  cloud:
+    generationfile: src/main/resources/frequencyFile
+
 filter:
   file:
     path: stopwords/english
