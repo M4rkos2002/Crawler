@@ -1,14 +1,19 @@
 package sirius.challenge.crawler.service
 
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Service
 import sirius.challenge.crawler.model.Frequency
+import sirius.challenge.crawler.model.URL
+import sirius.challenge.crawler.model.Word
 import sirius.challenge.crawler.model.dto.FrequencyCreate
 import sirius.challenge.crawler.repository.FrequencyRepository
+import java.io.File
 
 @Service
 class FrequencyService(
-    @Autowired val frequencyRepository: FrequencyRepository
+    @Autowired val frequencyRepository: FrequencyRepository,
+    @Value("\${word.cloud.generationfile}") val cloudGenerationFile: String,
 ) {
 
     fun createFrequency(body: FrequencyCreate): Frequency {
@@ -19,12 +24,28 @@ class FrequencyService(
         return frequencyRepository.save(freq)
     }
 
-    fun addOne(word: String, url: String): Frequency? {
-        if (frequencyRepository.existsByUrlAndWord(url, word)) {
-            val frequency = frequencyRepository.getByUrlAndWord(url, word).get()
+    fun existsByUrlAndWord(word: Word, url: URL): Boolean {
+        return frequencyRepository.existsByUrlAndWord(url, word)
+    }
+
+    fun addOne(word: Word, url: URL): Frequency? {
+        return if (frequencyRepository.existsByUrlAndWord(url, word)) {
+            val frequency = frequencyRepository.getByUrlAndWord(url, word).orElseThrow()
             frequency.freq += 1
-            return frequencyRepository.save(frequency)
+            frequencyRepository.save(frequency)
+        } else {
+            null
         }
-        return null
+    }
+
+    fun generateFrequencyFile() {
+        val frequencies = frequencyRepository.findAll()
+        val sortedFrequencies = frequencies.sortedByDescending { it.freq }
+        val outputFile = File(cloudGenerationFile)
+        outputFile.bufferedWriter().use { writer ->
+            sortedFrequencies.forEach { frequency ->
+                writer.write("${frequency.freq}: ${frequency.word?.content}\n")
+            }
+        }
     }
 }

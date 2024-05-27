@@ -5,13 +5,16 @@ import org.springframework.data.jpa.repository.Query
 import org.springframework.data.repository.query.Param
 import org.springframework.stereotype.Repository
 import sirius.challenge.crawler.model.Frequency
+import sirius.challenge.crawler.model.URL
+import sirius.challenge.crawler.model.Word
 import java.util.*
 
 @Repository
 interface FrequencyRepository : JpaRepository<Frequency, Long> {
-    @Query("SELECT f FROM Frequency f WHERE f.url.content = :url AND f.word.content = :word")
-    fun existsByUrlAndWord(@Param("url") url: String, @Param("word") word: String): Boolean
 
-    @Query("SELECT f FROM Frequency f WHERE f.url.content = :url AND f.word.content = :word")
-    fun getByUrlAndWord(@Param("url") url: String,@Param("word") word: String): Optional<Frequency>
+    @Query("SELECT CASE WHEN COUNT(f) > 0 THEN TRUE ELSE FALSE END FROM Frequency f WHERE f.url = :url AND f.word = :word")
+    fun existsByUrlAndWord(@Param("url") url: URL, @Param("word") word: Word): Boolean
+
+    @Query("SELECT f FROM Frequency f WHERE f.url = :url AND f.word = :word")
+    fun getByUrlAndWord(@Param("url") url: URL, @Param("word") word: Word): Optional<Frequency>
 }
