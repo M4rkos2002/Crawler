@@ -1,5 +1,5 @@
 package sirius.challenge.crawler.crawler
 
-interface Crawler {
+interface Scraper {
     fun visit(url: String): String?
 }

@@ -20,7 +20,7 @@ class IrrelevantWordsMessageFilter(
         val words = text.split("\\s+".toRegex())
         return words.filter { word ->
             val cleanWord = word.trim().replace(Regex("^[^a-zA-Z0-9\"]+|[^a-zA-Z0-9\"]+$"), "")
-            cleanWord.isNotEmpty() && !stopWords.contains(cleanWord.toLowerCase())
+            cleanWord.isNotEmpty() && !stopWords.contains(cleanWord.lowercase())
         }.map { word ->
             word.trim().replace(Regex("[.,]+$"), "")
         }
