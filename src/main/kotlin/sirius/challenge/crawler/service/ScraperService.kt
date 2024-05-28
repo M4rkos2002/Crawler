@@ -3,7 +3,7 @@ package sirius.challenge.crawler.service
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.ResponseEntity
 import org.springframework.stereotype.Service
-import sirius.challenge.crawler.crawler.AmazonProductDescriptionCrawlerImpl
+import sirius.challenge.crawler.crawler.AmazonProductDescriptionScraperImpl
 import sirius.challenge.crawler.filter.IrrelevantWordsMessageFilter
 import sirius.challenge.crawler.model.Word
 import sirius.challenge.crawler.model.dto.FrequencyCreate
@@ -11,7 +11,7 @@ import sirius.challenge.crawler.model.dto.UrlCreate
 import sirius.challenge.crawler.model.dto.WordCreate
 
 @Service
-class CrawlerService(
+class ScraperService(
     @Autowired val frequencyService: FrequencyService,
     @Autowired val urlService: UrlService,
     @Autowired val wordService: WordService,
@@ -25,12 +25,12 @@ class CrawlerService(
     }
 
     private fun persistKnownURL(url: String): ResponseEntity<Boolean> {
-        TODO()
+        return ResponseEntity.ok().body(true)
     }
 
     private fun persistNonKnownURL(url: String): ResponseEntity<Boolean> {
         val urlEntity = urlService.createUrl(UrlCreate(url))
-        val scrapResult = executeCrawler(url) ?: return ResponseEntity.badRequest().body(false)
+        val scrapResult = executeScraper(url) ?: return ResponseEntity.badRequest().body(false)
         val filterResult = executeFilter(scrapResult)
         val words = getWordIntoList(filterResult)
         println(words)
@@ -52,8 +52,8 @@ class CrawlerService(
         return ResponseEntity.ok().body(true)
     }
 
-    private fun executeCrawler(url: String): String? {
-        val crawler = AmazonProductDescriptionCrawlerImpl()
+    private fun executeScraper(url: String): String? {
+        val crawler = AmazonProductDescriptionScraperImpl()
         val result = crawler.visit(url)
         return result
     }

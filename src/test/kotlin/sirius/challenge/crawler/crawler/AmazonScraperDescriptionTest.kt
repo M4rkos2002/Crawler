@@ -3,9 +3,9 @@ package sirius.challenge.crawler.crawler
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.Test
 
-class AmazonCrawlerDescriptionTest {
+class AmazonScraperDescriptionTest {
 
-    private val crawler = AmazonProductDescriptionCrawlerImpl()
+    private val crawler = AmazonProductDescriptionScraperImpl()
     private val url = "https://www.amazon.com/gp/product/B00VVOCSOU"
 
 

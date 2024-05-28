@@ -14,7 +14,7 @@ class RectangleWordCloudGenerator: WordCloudGenerator {
     override fun generateImage(filePath: String) {
         val frequencyAnalyzer = FrequencyAnalyzer()
         val wordFrequencies = frequencyAnalyzer.load(filePath)
-        val dimension = Dimension(1200, 1200)
+        val dimension = Dimension(600, 600)
         val wordCloud = WordCloud(dimension, CollisionMode.RECTANGLE)
         wordCloud.setPadding(0)
         wordCloud.setBackground(RectangleBackground(dimension))

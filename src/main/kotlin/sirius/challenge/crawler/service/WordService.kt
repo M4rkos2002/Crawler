@@ -13,18 +13,18 @@ class WordService(
 
     fun createWord(body: WordCreate): Word {
         val word = Word()
-        word.content = body.content
+        word.content = body.content.lowercase() //to lowercase for standard
         word.frequencys = mutableListOf()
         return wordRepository.save(word)
     }
 
-    fun wordExistsByContent(content: String): Boolean{
-        return wordRepository.existsByContent(content)
+    fun wordExistsByContent(content: String): Boolean {
+        return wordRepository.existsByContent(content.lowercase())
     }
 
     fun getWordByContent(content: String): Word? {
-        if (wordRepository.existsByContent(content)) {
-            return wordRepository.getByContent(content).get()
+        if (wordExistsByContent(content)) {
+            return wordRepository.getByContent(content.lowercase()).get()  //find with lowercase
         }
         return null
     }
